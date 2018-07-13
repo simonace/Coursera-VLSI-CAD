@@ -93,3 +93,26 @@ class PcnCube(object):
 
     def getXn(self, n):
         return self.binaryNotation[n-1]
+
+    def getCofactor(self, n):
+        tempBn = self.binaryNotation.copy()
+        if n>0:
+            if tempBn[n-1] == '01':
+                tempBn[n-1] = '11'
+                return PcnCube(binaryNotation=tempBn)
+            elif tempBn[n-1] == '10':
+                return PcnCube(binaryNotation=(['00']*self.varNum))
+            elif tempBn[n-1] == '11' or tempBn[n-1] == '00':
+                return PcnCube(binaryNotation=tempBn)
+        elif n<0:
+            n = n*(-1)
+            if tempBn[n-1] == '01':
+                return PcnCube(binaryNotation=['00']*self.varNum)
+            elif tempBn[n-1] == '10':
+                tempBn[n-1] = '11'
+                return PcnCube(binaryNotation=tempBn)
+            elif tempBn[n-1] == '11' or tempBn[n-1] == '00':
+                return PcnCube(binaryNotation=tempBn)
+        else:
+            raise Exception("ValueError: n must be a postive or negative integer.")
+        
