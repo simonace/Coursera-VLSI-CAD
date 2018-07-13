@@ -30,11 +30,22 @@ class PcnFile(object):
 
 
 class PcnCube(object):
-    def __init__(self, rawCube, varNum):
-        self.varNum = varNum
-        self.noneDcEntryNum = int(rawCube[0])
-        self.noneDcEntries = [int(e) for e in rawCube[1:]]
-        self.getBinaryNotationForm()
+    def __init__(self, rawCube=[], varNum=0, binaryNotation=[]):
+        if varNum>0 and rawCube:
+            self.varNum = varNum
+            self.noneDcEntryNum = int(rawCube[0])
+            self.noneDcEntries = [int(e) for e in rawCube[1:]]
+            self.getBinaryNotationForm()
+        elif binaryNotation:
+            self.varNum = len(binaryNotation)
+            if varNum>0:
+                if varNum != self.varNum:
+                    raise Exception("The given number of variable is inconsistent with the number of variable in the given cube.")
+            self.binaryNotation = binaryNotation
+            self.getNoneDontCareEntryListForm()
+            self._refreshNoneDcEntryNum()
+        else:
+            raise Exception("PcnCube construction error!")
 
     def getBinaryNotationForm(self):
         self.binaryNotation = PcnCube.convertToBinaryNotationForm(self.noneDcEntries, self.varNum)
