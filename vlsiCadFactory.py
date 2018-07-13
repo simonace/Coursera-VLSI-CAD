@@ -123,6 +123,28 @@ class PcnCube(object):
         else:
             raise Exception("ValueError: n must be a postive or negative integer.")
 
+    def andWith(self, n):
+        tempBn = self.binaryNotation.copy()
+        if n>0:
+            if tempBn[n-1] == '01':
+                return PcnCube(binaryNotation=tempBn)
+            elif tempBn[n-1] == '10' or tempBn[n-1] == '00':
+                return PcnCube(binaryNotation=(['00']*self.varNum))
+            elif tempBn[n-1] == '11':
+                tempBn[n-1] = '01'
+                return PcnCube(binaryNotation=tempBn)
+        elif n<0:
+            n = n*(-1)
+            if tempBn[n-1] == '01' or tempBn[n-1] == '00':
+                return PcnCube(binaryNotation=['00']*self.varNum)
+            elif tempBn[n-1] == '10':
+                return PcnCube(binaryNotation=tempBn)
+            elif tempBn[n-1] == '11':
+                tempBn[n-1] = '10'
+                return PcnCube(binaryNotation=tempBn)
+        else:
+            raise Exception("ValueError: n must be a postive or negative integer.")
+
     def getComplementaryPcnCubes(self):
         # returns a list (containing 1 or more elements)
         if self._isZero():
