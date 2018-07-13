@@ -76,6 +76,8 @@ class PcnCube(object):
                     noneDcEntries.append(i+1)
                 elif binaryNotationList[i] == '10':
                     noneDcEntries.append(-1*(i+1))
+                elif binaryNotationList[i] == '00':
+                    return [0]
                 elif binaryNotationList[i] != '11':
                     raise Exception("PCN entry must be one of '01', '10' and '11'.")
             return noneDcEntries
