@@ -95,6 +95,9 @@ class PcnCube(object):
                 count = count + 1
         return count
 
+    def _isZero(self):
+        return True if '00' in self.binaryNotation else False
+
     def getXn(self, n):
         return self.binaryNotation[n-1]
 
@@ -119,4 +122,18 @@ class PcnCube(object):
                 return PcnCube(binaryNotation=tempBn)
         else:
             raise Exception("ValueError: n must be a postive or negative integer.")
-        
+
+    def getComplementaryPcnCubes(self):
+        # returns a list (containing 1 or more elements)
+        if self._isZero():
+            return [PcnCube(binaryNotation=['11']*self.varNum)]
+        elif self._isAllDontCare():
+            return [PcnCube(binaryNotation=['00']*self.varNum)]
+        else:
+            cubeList = []
+            for i in range(self.varNum):
+                if self.binaryNotation[i] == '10' or self.binaryNotation[i] == '01':
+                    b= ['11']*self.varNum
+                    b[i] = self.binaryNotation[i][::-1]
+                    cubeList.append(PcnCube(binaryNotation=b))
+            return cubeList
