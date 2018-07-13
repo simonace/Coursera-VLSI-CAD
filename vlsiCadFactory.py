@@ -60,8 +60,10 @@ class PcnCube(object):
         for entry in noneDcEntries:
             if entry < 0:
                 binaryNotationList[entry*(-1)-1] = '10'
-            else:
+            elif entry > 0:
                 binaryNotationList[entry-1] = '01'
+            else:
+                binaryNotationList = ['00']*varNum
         return binaryNotationList
 
     def convertToNoneDontCareEntryListForm(binaryNotationList, varNum):
