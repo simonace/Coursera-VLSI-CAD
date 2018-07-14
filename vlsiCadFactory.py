@@ -159,3 +159,52 @@ class PcnCube(object):
                     b[i] = self.binaryNotation[i][::-1]
                     cubeList.append(PcnCube(binaryNotation=b))
             return cubeList
+
+class PcnCubeList(object):
+    def __init__(self, rawCubeList, varNum):
+        self.cubeList = [PcnCube(rawCube=c, varNum=varNum) for c in rawCubeList]
+        self.varNum = varNum
+
+    def _trimZeros(self):
+        noneZeroList = []
+        for c in self.cubeList:
+            if not c._isZero():
+                noneZeroList.append(c)
+        return noneZeroList
+
+    def _isOne(self):
+        isOne = False
+        for c in self.cubeList:
+            if c._isAllDontCare():
+                isOne = True
+        if isOne:
+            self.cubeList = ['11']*self.varNum
+        return isOne
+
+    def _countPosNeg(self, n):
+        pos = 0
+        neg = 0
+        isBinate = True
+        for c in self.cubeList:
+            if c.getXn(n) == '01':
+                pos = pos +1
+            elif c.getXn(n) == '10':
+                neg = neg +1
+        if neg==0 or pos==0:
+            isBinate = False
+        return {'pos': pos, 'neg': neg, 'isBinate': isBinate}
+
+    def howMuchBinate(self, n):
+        pnCount = self._countPosNeg(n)
+        if pnCount['isBinate']:
+            return max(pnCount['pos'],pnCount['neg'])
+        else:
+            return -1   
+
+    def posNegNumDiff(self, n):
+        pnCount = self._countPosNeg(n)
+        if pnCount['isBinate']:
+            return abs(pnCount['pos']-pnCount['neg'])
+        else:
+            return -1
+    
