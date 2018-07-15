@@ -199,7 +199,7 @@ class PcnCubeList(object):
         if pnCount['isBinate']:
             return max(pnCount['pos'],pnCount['neg'])
         else:
-            return -1   
+            return -1 
 
     def posNegNumDiff(self, n):
         pnCount = self._countPosNeg(n)
@@ -207,7 +207,7 @@ class PcnCubeList(object):
             return abs(pnCount['pos']-pnCount['neg'])
         else:
             return -1
-    
+
     def getMostBinate(self, specifiedNList = None):
         if specifiedNList:
             nList = specifiedNList
@@ -288,3 +288,16 @@ class PcnCubeList(object):
                 return mostShownTuple[1][0]
             else:
                 return self.getMinIndex(specifiedNList = mostShownTuple[1])
+
+    def _oneStepRecursion(self, n):
+        existingCubesNum = len(self.cubeList)
+        for i in range(existingCubesNum):
+            thisCube = self.cubeList.pop(0)
+            posCo = thisCube.getCofactor(n)
+            negCo = thisCube.getCofactor(n*(-1))
+            compPosCo = posCo.getComplementaryPcnCubes()
+            compNegCo = negCo.getComplementaryPcnCubes()
+            compPosCoAndN = [c.andWith(n) for c in compPosCo]
+            compNegCoAndNBar = [c.andWith(n*(-1)) for c in compNegCo]
+            self.cubeList.extend(compPosCoAndN)
+            self.cubeList.extend(compNegCoAndNBar)
