@@ -208,3 +208,64 @@ class PcnCubeList(object):
         else:
             return -1
     
+    def getMostBinate(self, specifiedNList = None):
+        if specifiedNList:
+            nList = specifiedNList
+        else:
+            nList = [i+1 for i in range(self.varNum)]
+        maxBinate = -1
+        nMax = []
+        for n in nList:
+            thisBinate = self.howMuchBinate(n)
+            if thisBinate > maxBinate:
+                maxBinate = thisBinate
+                nMax = []
+                nMax.append(n)
+            elif thisBinate == maxBinate:
+                nMax.append(n)
+        return (maxBinate, nMax)
+
+    def getLeastPosNegNumDiff(self, specifiedNList = None):
+        if specifiedNList:
+            nList = specifiedNList
+        else:
+            nList = [i+1 for i in range(self.varNum)]
+        minDiff = -1
+        nMin = []
+        for n in nList:
+            thisDiff = self.posNegNumDiff(n)
+            if thisDiff >= 0:
+                if minDiff == -1:
+                    minDiff = thisDiff
+                if thisDiff < minDiff:
+                    minDiff = thisDiff
+                    nMin = []
+                    nMin.append(n)
+                elif thisDiff == minDiff:
+                    nMin.append(n)
+        return (minDiff, nMin)
+
+    def pickMostShownInAllUnate(self, specifiedNList = None):
+        if specifiedNList:
+            nList = specifiedNList
+        else:
+            nList = [i+1 for i in range(self.varNum)]
+        maxCount = 0
+        nMax = []
+        for n in nList:
+            d = self._countPosNeg(n)
+            if not d['isBinate']:
+                thisCount = max(d['pos'], d['neg'])
+                if thisCount > maxCount:
+                    maxCount = thisCount
+                    nMax = []
+                    nMax.append(n)
+                elif thisCount == maxCount:
+                    nMax.append(n)
+        return (maxCount, nMax)
+
+    def getMinIndex(self, specifiedNList = None):
+        if specifiedNList:
+            return min(specifiedNList)
+        else:
+            return 1
