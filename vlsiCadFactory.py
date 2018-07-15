@@ -269,3 +269,22 @@ class PcnCubeList(object):
             return min(specifiedNList)
         else:
             return 1
+
+    def whichN2Start(self):
+        mostBinateTuple = self.getMostBinate()
+        isUnate = (mostBinateTuple[0] == -1)
+        if not isUnate: # exists binate
+            if len(mostBinateTuple[1])==1:
+                return mostBinateTuple[1][0]
+            else:
+                leastNumDiffTuple = self.getLeastPosNegNumDiff(specifiedNList = mostBinateTuple[1])
+                if len(leastNumDiffTuple[1])==1:
+                    return leastNumDiffTuple[1][0]
+                else:
+                    return self.getMinIndex(specifiedNList = leastNumDiffTuple[1])
+        else: # all unate
+            mostShownTuple = self.pickMostShownInAllUnate()
+            if len(mostShownTuple[1])==1:
+                return mostShownTuple[1][0]
+            else:
+                return self.getMinIndex(specifiedNList = mostShownTuple[1])
