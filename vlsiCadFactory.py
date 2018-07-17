@@ -172,7 +172,7 @@ class PcnCubeList(object):
                 noneZeroList.append(c)
         return noneZeroList
 
-    def _isOne(self):
+    def _isTautology(self):
         isOne = False
         for c in self.cubeList:
             if c.isAllDontCare():
