@@ -85,7 +85,7 @@ class PcnCube(object):
     def _refreshNoneDcEntryNum(self):
         self.noneDcEntryNum = self.varNum - self._countDontCare()
 
-    def _isAllDontCare(self):
+    def isAllDontCare(self):
         return True if self._countDontCare() == self.varNum else False
 
     def _countDontCare(self):
@@ -95,7 +95,7 @@ class PcnCube(object):
                 count = count + 1
         return count
 
-    def _isZero(self):
+    def isZero(self):
         return True if '00' in self.binaryNotation else False
 
     def getXn(self, n):
@@ -147,9 +147,9 @@ class PcnCube(object):
 
     def getComplementaryPcnCubes(self):
         # returns a list (containing 1 or more elements)
-        if self._isZero():
+        if self.isZero():
             return [PcnCube(binaryNotation=['11']*self.varNum)]
-        elif self._isAllDontCare():
+        elif self.isAllDontCare():
             return [PcnCube(binaryNotation=['00']*self.varNum)]
         else:
             cubeList = []
@@ -168,14 +168,14 @@ class PcnCubeList(object):
     def _trimZeros(self):
         noneZeroList = []
         for c in self.cubeList:
-            if not c._isZero():
+            if not c.isZero():
                 noneZeroList.append(c)
         return noneZeroList
 
     def _isOne(self):
         isOne = False
         for c in self.cubeList:
-            if c._isAllDontCare():
+            if c.isAllDontCare():
                 isOne = True
         if isOne:
             self.cubeList = ['11']*self.varNum
