@@ -98,6 +98,12 @@ class PcnCube(object):
     def isZero(self):
         return True if '00' in self.binaryNotation else False
 
+    def isUnit(self):
+        # only 1 literal is not don't care
+        if self._countDontCare() == (self.varNum - 1):
+            return self.noneDcEntries[0]
+        return 0
+
     def getXn(self, n):
         return self.binaryNotation[n-1]
 
