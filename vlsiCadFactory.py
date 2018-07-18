@@ -307,3 +307,20 @@ class PcnCubeList(object):
             compNegCoAndNBar = [c.andWith(n*(-1)) for c in compNegCo]
             self.cubeList.extend(compPosCoAndN)
             self.cubeList.extend(compNegCoAndNBar)
+
+    def _existAllDontCareCube(self):
+        for c in self.cubeList:
+            if c.isAllDontCare():
+                return True
+        return False
+
+    def _existComplementaryUnits(self):
+        unitList = []
+        for c in self.cubeList:
+            unitLiteral = c.isUnit()
+            if unitLiteral != 0:
+                unitList.append(unitLiteral)
+        for u in unitList:
+            if u*(-1) in unitList:
+                return True
+        return False
