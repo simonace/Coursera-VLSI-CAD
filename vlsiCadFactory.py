@@ -170,6 +170,7 @@ class PcnCubeList(object):
     def __init__(self, rawCubeList, varNum):
         self.cubeList = [PcnCube(rawCube=c, varNum=varNum) for c in rawCubeList]
         self.varNum = varNum
+        self.originalCubeList = self.cubeList.copy()
 
     def _trimZeros(self):
         noneZeroList = []
@@ -191,7 +192,7 @@ class PcnCubeList(object):
         pos = 0
         neg = 0
         isBinate = True
-        for c in self.cubeList:
+        for c in self.originalCubeList:
             if c.getXn(n) == '01':
                 pos = pos +1
             elif c.getXn(n) == '10':
