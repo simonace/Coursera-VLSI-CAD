@@ -277,8 +277,8 @@ class PcnCubeList(object):
         else:
             return 1
 
-    def whichN2Start(self):
-        mostBinateTuple = self.getMostBinate()
+    def whichN2Start(self, specifiedNList = None):
+        mostBinateTuple = self.getMostBinate(specifiedNList=specifiedNList)
         isUnate = (mostBinateTuple[0] == -1)
         if not isUnate: # exists binate
             if len(mostBinateTuple[1])==1:
