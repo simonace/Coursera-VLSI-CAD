@@ -171,6 +171,7 @@ class PcnCubeList(object):
         self.cubeList = [PcnCube(rawCube=c, varNum=varNum) for c in rawCubeList]
         self.varNum = varNum
         self.originalCubeList = self.cubeList.copy()
+        self.unsplittedN = [x+1 for x in range(self.varNum)]
 
     def _trimZeros(self):
         noneZeroList = []
@@ -297,6 +298,7 @@ class PcnCubeList(object):
                 return self.getMinIndex(specifiedNList = mostShownTuple[1])
 
     def _oneStepRecursion(self, n):
+        self.unsplittedN.pop(self.unsplittedN.index(n))
         existingCubesNum = len(self.cubeList)
         for i in range(existingCubesNum):
             thisCube = self.cubeList.pop(0)
